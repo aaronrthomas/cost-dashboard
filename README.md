@@ -198,19 +198,21 @@ The generated `cost_dashboard.json` contains:
 ## 🖼 Key Screenshots
 
 ### app.py — Core Data Aggregation Script
-![app.py code](Screenshots/app_py_code.jpg)
+![58b80ed1-dfc6-446a-b1f0-be29c601c23a](https://github.com/user-attachments/assets/1f51a759-4337-4a0e-9e16-47e119172670)
+
 
 ---
 
 ### Generated JSON Output — cost_dashboard.json
-![cost_dashboard.json output](Screenshots/cost_dashboard_json.jpg)
+![3b4ac9a2-ecde-4a39-832d-976f1c7e383e](https://github.com/user-attachments/assets/075a36ae-9649-49bf-b122-7517a6549f91)
+
 
 ---
 
 ### PostgreSQL Tables in pgAdmin
-![PostgreSQL tables](Screenshots/postgresql_tables.jpg)
+![dea26164-6da8-4575-af1f-4ccf490ca6d9](https://github.com/user-attachments/assets/a427efc3-e859-42e8-97c8-14ad662c8224)
 
 ---
 
 ### Terminal Output — Successful JSON Generation
-![Terminal output](Screenshots/terminal_output.jpg)
+![2b80050c-3e2c-439a-a2e1-5699f8a7fb14](https://github.com/user-attachments/assets/ff82cce5-08e6-42e5-9367-b8d20d68fe7b)
