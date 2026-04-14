@@ -1,119 +1,216 @@
-# AWS Cost Dashboard — Backend
+# AWS Cost Dashboard Integrator
 
-Python + PostgreSQL backend that queries `aws_resources`, `aws_costs`, and `top_cost_resources`, aggregates data by **service type**, **subscription**, and **time period** (daily/monthly), and exposes it via a Flask REST API or as static JSON files.
+## 📌 Overview
+The **AWS Cost Dashboard Integrator** is a backend utility that aggregates AWS resource and cost data stored in a PostgreSQL database and exposes it in a structured JSON format suitable for frontend dashboards.
 
----
+The project demonstrates:
+- Database querying and joins
+- Cost aggregation logic
+- Backend-to-frontend data contracts
+- JSON-based API design
 
-## Quick Start
-
-### 1. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 2. Configure database
-
-Copy the example env file and edit it with your PostgreSQL credentials:
-
-```bash
-cp .env.example .env
-# edit .env with your actual DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD
-```
-
-### 3. Seed sample data (optional)
-
-If you want to test with pre-built sample data:
-
-```bash
-python seed_db.py
-```
-
-This creates the three tables and inserts realistic cost entries.
-
-### 4a. Run the Flask API
-
-```bash
-python app.py
-# → Listening on http://0.0.0.0:5000
-```
-
-### 4b. Or generate static JSON files
-
-```bash
-python generate_json.py              # all aggregations
-python generate_json.py --group service       # only by_service.json
-python generate_json.py --group subscription  # only by_subscription.json
-python generate_json.py --group daily         # only by_day.json
-python generate_json.py --group monthly       # only by_month.json
-python generate_json.py --group dashboard     # combined dashboard.json
-```
-
-Output files are written to `output/`.
+This solution supports both:
+- JSON file generation
+- REST API exposure using Flask
 
 ---
 
-## API Endpoints
-
-| Method | Path                         | Description                        |
-|--------|------------------------------|------------------------------------|
-| GET    | `/health`                    | Health check                       |
-| GET    | `/api/resources`             | Raw `aws_resources` rows           |
-| GET    | `/api/costs`                 | Raw `aws_costs` rows               |
-| GET    | `/api/top-cost-resources`    | Raw `top_cost_resources` rows      |
-| GET    | `/api/aggregate/service`     | Costs grouped by service type      |
-| GET    | `/api/aggregate/subscription`| Costs grouped by subscription      |
-| GET    | `/api/aggregate/time`        | Costs grouped by time period       |
-|        |                              | Query: `?period=daily` or `monthly`|
-| GET    | `/api/dashboard`             | Combined payload for full dashboard|
-
-All responses are JSON with CORS enabled for frontend integration.
+## 🎯 Objectives
+- Query multiple PostgreSQL tables (`aws_resources`, `aws_costs`, `top_cost_resources`)
+- Aggregate AWS cost data by service, subscription, and time
+- Generate frontend-friendly structured JSON
+- Provide the data via an API or static JSON file
 
 ---
 
-## JSON Structure Samples
-
-Pre-generated sample outputs are in `output/`:
-
-- `by_service.json` — grouped by AWS service type
-- `by_subscription.json` — grouped by subscription/account
-- `by_day.json` — daily time-series breakdown
+## 🛠 Tech Stack
+- **Python 3.9+**
+- **PostgreSQL**
+- **psycopg (v3)**
+- **Flask**
+- **python-dotenv**
 
 ---
 
-## Project Structure
-
-```
-devops/
-├── .env.example        # Environment variable template
-├── requirements.txt    # Python dependencies
-├── config.py           # Loads DB settings from .env
-├── db.py               # Database queries & aggregation logic
-├── app.py              # Flask REST API
-├── generate_json.py    # CLI script to export JSON files
-├── seed_db.py          # Creates tables + inserts sample data
-└── output/             # Generated JSON sample files
+## 📂 Project Structure
+```text
+├── Screenshots/                # Project screenshots
+├── README.md                   # Project documentation
+├── app.py                      # Core data aggregation & JSON generator
+├── db.py                       # Database connection & query helpers
+├── config.py                   # Loads DB settings from .env
+├── generate_json.py            # CLI script to export individual JSON files
+├── seed_db.py                  # Creates tables & inserts sample data
+├── cost_dashboard.json         # Generated combined JSON output
+├── requirements.txt            # Python dependencies
+├── .env.example                # Environment variable template
+└── output/                     # Individual aggregation JSON files
     ├── by_service.json
     ├── by_subscription.json
     └── by_day.json
 ```
 
-## Frontend Integration
+---
 
-### Using the API (recommended)
+## 🗄 Database Schema Assumptions
 
-```javascript
-// Fetch all dashboard data in one call
-const res = await fetch('http://localhost:5000/api/dashboard');
-const data = await res.json();
+### aws_resources
+| Column          | Type    | Description                       |
+|-----------------|---------|-----------------------------------|
+| resource_id     | SERIAL  | Unique AWS resource ID            |
+| resource_name   | VARCHAR | Human-readable resource name      |
+| service_type    | VARCHAR | AWS service (EC2, S3, RDS, etc.)  |
+| region          | VARCHAR | AWS region                        |
+| subscription_id | VARCHAR | AWS subscription/account          |
+| created_at      | TIMESTAMP | Resource creation timestamp     |
 
-// data.by_service      → service breakdown
-// data.by_subscription → subscription breakdown
-// data.by_day          → daily time series
-// data.by_month        → monthly time series
-// data.top_cost_resources → top spenders
+### aws_costs
+| Column      | Type    | Description              |
+|-------------|---------|--------------------------|
+| cost_id     | SERIAL  | Primary key              |
+| resource_id | INTEGER | Linked resource ID (FK)  |
+| cost_date   | DATE    | Date of usage            |
+| cost_amount | NUMERIC | Cost incurred            |
+| currency    | VARCHAR | Currency code (default: USD) |
+
+### top_cost_resources
+| Column        | Type    | Description                |
+|---------------|---------|----------------------------|
+| id            | SERIAL  | Primary key                |
+| resource_id   | INTEGER | Resource ID (FK)           |
+| resource_name | VARCHAR | Human-readable name        |
+| service_type  | VARCHAR | AWS service type           |
+| total_cost    | NUMERIC | Aggregated total cost      |
+| rank          | INTEGER | Cost ranking               |
+
+> ⚠️ Note: If your schema differs, adjust SQL queries in `db.py` accordingly.
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/aaronrthomas/cost-dashboard.git
+cd cost-dashboard
 ```
 
-### Using static JSON files
+### 2️⃣ Create Virtual Environment (Recommended)
+```bash
+python -m venv venv
+```
+Activate:
+- **Windows:**
+```bash
+venv\Scripts\activate
+```
+- **Linux/Mac:**
+```bash
+source venv/bin/activate
+```
 
-If you prefer a static approach, serve the `output/*.json` files and fetch them directly.
+### 3️⃣ Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 4️⃣ Configure Database Connection
+Copy the example env file and edit it with your PostgreSQL credentials:
+```bash
+cp .env.example .env
+```
+Edit `.env` with your actual values:
+```env
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=aws_cost_db
+DB_USER=postgres
+DB_PASSWORD=your_password
+```
+Ensure PostgreSQL is running.
+
+### 5️⃣ Seed Sample Data (Optional)
+If you want to test with pre-built sample data:
+```bash
+python seed_db.py
+```
+This creates the three tables and inserts realistic cost entries.
+
+---
+
+## ▶️ Running the Project
+
+### Option 1: Generate Combined JSON File
+```bash
+python app.py
+```
+Output:
+```
+[OK] cost_dashboard.json generated successfully
+```
+This reads the aggregated data from `output/` and produces a single `cost_dashboard.json` file.
+
+### Option 2: Generate Individual JSON Files
+```bash
+python generate_json.py                      # all aggregations
+python generate_json.py --group service      # only by_service.json
+python generate_json.py --group subscription # only by_subscription.json
+python generate_json.py --group daily        # only by_day.json
+python generate_json.py --group monthly      # only by_month.json
+python generate_json.py --group dashboard    # combined dashboard.json
+```
+Output files are written to `output/`.
+
+---
+
+## 📊 JSON Output Structure
+
+The generated `cost_dashboard.json` contains:
+
+```json
+{
+  "generated_at": "2026-04-14T12:27:32.143026+00:00",
+  "by_service": {
+    "grouped_by": "service_type",
+    "data": [
+      {
+        "service_type": "EC2",
+        "total_cost": 93.6,
+        "resource_count": 2,
+        "resources": [...]
+      }
+    ]
+  },
+  "by_subscription": {
+    "grouped_by": "subscription",
+    "data": [...]
+  },
+  "by_day": {
+    "grouped_by": "time_daily",
+    "period_type": "daily",
+    "data": [...]
+  }
+}
+```
+
+---
+
+## 🖼 Key Screenshots
+
+### app.py — Core Data Aggregation Script
+![app.py code](Screenshots/app_py_code.jpg)
+
+---
+
+### Generated JSON Output — cost_dashboard.json
+![cost_dashboard.json output](Screenshots/cost_dashboard_json.jpg)
+
+---
+
+### PostgreSQL Tables in pgAdmin
+![PostgreSQL tables](Screenshots/postgresql_tables.jpg)
+
+---
+
+### Terminal Output — Successful JSON Generation
+![Terminal output](Screenshots/terminal_output.jpg)
