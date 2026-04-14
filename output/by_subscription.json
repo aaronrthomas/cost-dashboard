@@ -1,0 +1,81 @@
+{
+  "grouped_by": "subscription",
+  "data": [
+    {
+      "subscription_id": "sub-001",
+      "total_cost": 143.95,
+      "services": [
+        {
+          "service_type": "EC2",
+          "total_cost": 93.6,
+          "resources": [
+            { "resource_id": 1, "resource_name": "web-prod-1", "total_cost": 63.6 },
+            { "resource_id": 2, "resource_name": "web-prod-2", "total_cost": 30.0 }
+          ]
+        },
+        {
+          "service_type": "API Gateway",
+          "total_cost": 10.25,
+          "resources": [
+            { "resource_id": 3, "resource_name": "api-gateway-main", "total_cost": 10.25 }
+          ]
+        },
+        {
+          "service_type": "CloudFront",
+          "total_cost": 40.1,
+          "resources": [
+            { "resource_id": 7, "resource_name": "cdn-assets", "total_cost": 40.1 }
+          ]
+        }
+      ]
+    },
+    {
+      "subscription_id": "sub-002",
+      "total_cost": 301.35,
+      "services": [
+        {
+          "service_type": "RDS",
+          "total_cost": 297.7,
+          "resources": [
+            { "resource_id": 4, "resource_name": "db-primary", "total_cost": 230.4 },
+            { "resource_id": 5, "resource_name": "db-replica", "total_cost": 67.3 }
+          ]
+        },
+        {
+          "service_type": "S3",
+          "total_cost": 3.65,
+          "resources": [
+            { "resource_id": 6, "resource_name": "data-lake", "total_cost": 3.65 }
+          ]
+        }
+      ]
+    },
+    {
+      "subscription_id": "sub-003",
+      "total_cost": 233.55,
+      "services": [
+        {
+          "service_type": "Lambda",
+          "total_cost": 1.35,
+          "resources": [
+            { "resource_id": 8, "resource_name": "lambda-etl", "total_cost": 1.35 }
+          ]
+        },
+        {
+          "service_type": "ElastiCache",
+          "total_cost": 54.1,
+          "resources": [
+            { "resource_id": 9, "resource_name": "cache-cluster", "total_cost": 54.1 }
+          ]
+        },
+        {
+          "service_type": "OpenSearch",
+          "total_cost": 178.1,
+          "resources": [
+            { "resource_id": 10, "resource_name": "search-cluster", "total_cost": 178.1 }
+          ]
+        }
+      ]
+    }
+  ]
+}

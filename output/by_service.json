@@ -1,0 +1,141 @@
+{
+  "grouped_by": "service_type",
+  "data": [
+    {
+      "service_type": "EC2",
+      "total_cost": 93.6,
+      "resource_count": 2,
+      "resources": [
+        {
+          "resource_id": 1,
+          "resource_name": "web-prod-1",
+          "region": "us-east-1",
+          "subscription_id": "sub-001",
+          "total_cost": 63.6,
+          "cost_entries": 5
+        },
+        {
+          "resource_id": 2,
+          "resource_name": "web-prod-2",
+          "region": "us-east-1",
+          "subscription_id": "sub-001",
+          "total_cost": 30.0,
+          "cost_entries": 3
+        }
+      ]
+    },
+    {
+      "service_type": "RDS",
+      "total_cost": 297.7,
+      "resource_count": 2,
+      "resources": [
+        {
+          "resource_id": 4,
+          "resource_name": "db-primary",
+          "region": "us-east-1",
+          "subscription_id": "sub-002",
+          "total_cost": 230.4,
+          "cost_entries": 5
+        },
+        {
+          "resource_id": 5,
+          "resource_name": "db-replica",
+          "region": "us-west-2",
+          "subscription_id": "sub-002",
+          "total_cost": 67.3,
+          "cost_entries": 3
+        }
+      ]
+    },
+    {
+      "service_type": "S3",
+      "total_cost": 3.65,
+      "resource_count": 1,
+      "resources": [
+        {
+          "resource_id": 6,
+          "resource_name": "data-lake",
+          "region": "us-east-1",
+          "subscription_id": "sub-002",
+          "total_cost": 3.65,
+          "cost_entries": 3
+        }
+      ]
+    },
+    {
+      "service_type": "CloudFront",
+      "total_cost": 40.1,
+      "resource_count": 1,
+      "resources": [
+        {
+          "resource_id": 7,
+          "resource_name": "cdn-assets",
+          "region": "global",
+          "subscription_id": "sub-001",
+          "total_cost": 40.1,
+          "cost_entries": 5
+        }
+      ]
+    },
+    {
+      "service_type": "Lambda",
+      "total_cost": 1.35,
+      "resource_count": 1,
+      "resources": [
+        {
+          "resource_id": 8,
+          "resource_name": "lambda-etl",
+          "region": "us-east-1",
+          "subscription_id": "sub-003",
+          "total_cost": 1.35,
+          "cost_entries": 3
+        }
+      ]
+    },
+    {
+      "service_type": "API Gateway",
+      "total_cost": 10.25,
+      "resource_count": 1,
+      "resources": [
+        {
+          "resource_id": 3,
+          "resource_name": "api-gateway-main",
+          "region": "us-east-1",
+          "subscription_id": "sub-001",
+          "total_cost": 10.25,
+          "cost_entries": 3
+        }
+      ]
+    },
+    {
+      "service_type": "ElastiCache",
+      "total_cost": 54.1,
+      "resource_count": 1,
+      "resources": [
+        {
+          "resource_id": 9,
+          "resource_name": "cache-cluster",
+          "region": "us-east-1",
+          "subscription_id": "sub-003",
+          "total_cost": 54.1,
+          "cost_entries": 3
+        }
+      ]
+    },
+    {
+      "service_type": "OpenSearch",
+      "total_cost": 178.1,
+      "resource_count": 1,
+      "resources": [
+        {
+          "resource_id": 10,
+          "resource_name": "search-cluster",
+          "region": "us-west-2",
+          "subscription_id": "sub-003",
+          "total_cost": 178.1,
+          "cost_entries": 5
+        }
+      ]
+    }
+  ]
+}
