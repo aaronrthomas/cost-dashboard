@@ -29,7 +29,9 @@ def _load_json(filepath):
 def main():
     # Load each aggregation from the output directory
     dashboard = {
+        "submitted_by": "aaronrthomas@mulearn",
         "generated_at": datetime.now(timezone.utc).isoformat(),
+        
     }
 
     for key, path in SOURCE_FILES.items():
