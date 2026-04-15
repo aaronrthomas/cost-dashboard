@@ -198,13 +198,15 @@ The generated `cost_dashboard.json` contains:
 ## 🖼 Key Screenshots
 
 ### app.py — Core Data Aggregation Script
-![58b80ed1-dfc6-446a-b1f0-be29c601c23a](https://github.com/user-attachments/assets/1f51a759-4337-4a0e-9e16-47e119172670)
+<img width="2049" height="1506" alt="image" src="https://github.com/user-attachments/assets/270360f6-1d72-4fd0-98ab-f1d18385128b" />
+
 
 
 ---
 
 ### Generated JSON Output — cost_dashboard.json
-![3b4ac9a2-ecde-4a39-832d-976f1c7e383e](https://github.com/user-attachments/assets/075a36ae-9649-49bf-b122-7517a6549f91)
+<img width="2049" height="1487" alt="image" src="https://github.com/user-attachments/assets/16c7aaff-db76-4a1d-a219-d83921fc5595" />
+
 
 
 ---
@@ -215,4 +217,5 @@ The generated `cost_dashboard.json` contains:
 ---
 
 ### Terminal Output — Successful JSON Generation
-![2b80050c-3e2c-439a-a2e1-5699f8a7fb14](https://github.com/user-attachments/assets/ff82cce5-08e6-42e5-9367-b8d20d68fe7b)
+<img width="2044" height="397" alt="image" src="https://github.com/user-attachments/assets/372155c6-0052-4813-83e9-964c1760b0ec" />
+
